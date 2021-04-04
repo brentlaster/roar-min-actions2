@@ -26,6 +26,7 @@ jobs:
       run: ./gradlew -x test build
       
   docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       -
@@ -40,6 +41,8 @@ jobs:
          # triggered a workflow, this defaults to the reference or SHA for that event.
          # Otherwise, uses the default branch.
          ref: 'main'
+         
+         
 
       -
         name: Set up QEMU
