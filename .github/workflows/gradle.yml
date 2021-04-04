@@ -64,7 +64,7 @@ jobs:
         with:
           context: 'docker'
           push: true
-          file: Dockerfile_roar_db_image
+          file: docker/Dockerfile_roar_db_image
           tags: bclaster/test-image:v1.0
       -
         name: Image digest
