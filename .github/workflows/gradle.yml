@@ -25,7 +25,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew -x test build
       
-jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
