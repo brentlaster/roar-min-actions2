@@ -10,23 +10,23 @@ on:
     branches: [ master ]
 
 jobs:
-#  build:
+  build:
 
-#    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-#    steps:
-#    - uses: actions/checkout@v2
-#    - name: Set up JDK 1.8
-#      uses: actions/setup-java@v1
-#      with:
-#        java-version: 1.8
-#    - name: Grant execute permission for gradlew
-#      run: chmod +x gradlew
-#    - name: Build with Gradle
-#      run: ./gradlew -x test build
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew -x test build
       
   docker:
-#    needs: build
+    needs: build
     runs-on: ubuntu-latest
     steps:
       -
@@ -66,10 +66,21 @@ jobs:
          # context: 'docker'
           push: true
           file: Dockerfile_roar_db_image
-          tags: bclaster/test-image:v1.0
+          tags: bclaster/roar-db-github-actions:v1.0
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}      
       
       
-      
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+         # context: 'docker'
+          push: true
+          file: Dockerfile_roar_web_image
+          tags: bclaster/roar-web-github-actions:v1.0
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}      
